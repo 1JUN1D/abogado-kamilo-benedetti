@@ -4,12 +4,13 @@
    Reemplaza ADS_ID y SEND_TO con los datos de la acción de conversión
    "Clic a WhatsApp" de Google Ads (ej: 'AW-123456789' y 'AW-123456789/AbCdEfGh').
    Mientras tengan las X, no se carga el tag y WhatsApp abre normalmente. */
-var ADS_ID  = 'AW-XXXXXXXXXX';
-var SEND_TO = 'AW-XXXXXXXXXX/XXXXXXXXXXXXXXX';
+var ADS_ID  = 'AW-18500011109';
+var SEND_TO = 'AW-18500011109/xWy9CLvDzJQdEOWIv_VE'; /* Benedetti_WhatsApp */
 var WA_NUMBER = '573003615985';
 
 (function loadGtag(){
   if (ADS_ID.indexOf('X') !== -1) return;
+  if (typeof window.gtag === 'function') return; /* ya cargado desde el <head> */
   var s = document.createElement('script');
   s.async = true;
   s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ADS_ID;
@@ -30,7 +31,7 @@ function contactoWhatsApp(mensaje){
     window.location.href = url;
   }
   if (typeof window.gtag === 'function' && SEND_TO.indexOf('X') === -1){
-    gtag('event', 'conversion', { send_to: SEND_TO, event_callback: abrir });
+    gtag('event', 'conversion', { send_to: SEND_TO, transaction_id: '', event_callback: abrir });
     setTimeout(abrir, 800);
   } else {
     abrir();
